@@ -19,8 +19,10 @@ namespace DropboxClone.Controllers
         public List<FileModel> Search(string key)
         {
             var result = new List<FileModel>();
+
             string userFolder = string.Format(@"\{0}", User.Identity.GetUserId());
             string userFolderPath = ConfigurationManager.AppSettings["UserDataPath"] + userFolder;
+
             var files = Directory.GetFiles(userFolderPath, $"*{key}*.*", SearchOption.AllDirectories);
 
             foreach (var filePath in files)

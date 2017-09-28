@@ -11,6 +11,5 @@ namespace DropboxClone.Models
         public string Name { get; set; }
         public string Extension { get; set; }
         public string ModifiedDate { get; set; }
-
     }
 }
