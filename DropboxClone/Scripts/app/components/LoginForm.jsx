@@ -4,7 +4,8 @@ class LoginForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.login(this.refs.email.value, this.refs.password.value);
+        if (this.refs.email.value && this.refs.password.value)
+            this.props.login(this.refs.email.value, this.refs.password.value);
     }
 
     render() {

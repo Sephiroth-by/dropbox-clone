@@ -9,6 +9,7 @@ class CreateFolderForm extends React.Component {
     onSubmit(e) {
         e.preventDefault();
         this.props.createFolder(this.props.path, this.refs.foldername.value);
+        this.props.triggerCreateFolder();
     }
 
     render() {

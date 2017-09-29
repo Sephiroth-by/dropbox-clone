@@ -236,6 +236,11 @@
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\app\api\authApi.js" />
+    <Content Include="Scripts\app\api\fileApi.js" />
+    <Content Include="Scripts\app\api\folderApi.js" />
+    <Content Include="Scripts\app\api\searchApi.js" />
+    <Content Include="Scripts\app\reducers\reducer.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -273,6 +278,10 @@
     <Content Include="Scripts\app\components\CreateFolderForm.jsx" />
     <Content Include="Scripts\app\components\ItemTypes.jsx" />
     <Content Include="Scripts\app\components\SearchForm.jsx" />
+    <Content Include="Scripts\app\actions\folderActions.jsx" />
+    <Content Include="Scripts\app\actions\fileActions.jsx" />
+    <Content Include="Scripts\app\actions\searchActions.jsx" />
+    <Content Include="Scripts\app\actions\authActions.jsx" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

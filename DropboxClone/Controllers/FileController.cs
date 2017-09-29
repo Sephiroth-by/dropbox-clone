@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNet.Identity;
+﻿using DropboxClone.Models;
+using Microsoft.AspNet.Identity;
+using System.Collections.Generic;
 using System.Configuration;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
@@ -31,10 +34,10 @@ namespace DropboxClone.Controllers
 
         [HttpPost]
         [Route("api/file/uploadfile")]
-        public string UploadFile(string path)
+        public List<FileModel> UploadFile(string path)
         {
-            int iUploadedCnt = 0;
-
+            var uploadedFileNames = new List<string>();
+            var filesList = new List<FileModel>();
             string userFolder = string.Format(@"\{0}", User.Identity.GetUserId());
             string sPath = ConfigurationManager.AppSettings["UserDataPath"] + userFolder + path;
 
@@ -46,20 +49,23 @@ namespace DropboxClone.Controllers
                 {
                     if (!File.Exists(sPath + Path.GetFileName(hfc[i].FileName)))
                     {
-                        hfc[i].SaveAs(sPath + Path.GetFileName(hfc[i].FileName));
-                        iUploadedCnt = iUploadedCnt + 1;
+                        hfc[i].SaveAs(sPath + Path.GetFileName(hfc[i].FileName));;
+                        uploadedFileNames.Add(hfc[i].FileName);
                     }
                 }
             }
 
-            if (iUploadedCnt > 0)
+           var files = new DirectoryInfo(ConfigurationManager.AppSettings["UserDataPath"] + userFolder + path).GetFiles();
+
+            foreach (var item in files)
             {
-                return iUploadedCnt + " Files Uploaded Successfully";
+                if (uploadedFileNames.Contains(item.Name))
+                {
+                    filesList.Add(new FileModel { Name = item.Name, Path = path + item.Name, Extension = item.Extension, ModifiedDate = item.LastWriteTime.ToShortDateString() });
+                }
             }
-            else
-            {
-                return "Upload Failed";
-            }
+
+            return filesList;
         }
 
         [HttpPost]
@@ -70,7 +76,7 @@ namespace DropboxClone.Controllers
 
             File.Delete(ConfigurationManager.AppSettings["UserDataPath"] + userFolder + path);
 
-            return Ok();
+            return Ok(path.TrimEnd('\\').Split('\\').Last());
         }
 
         [HttpPost]
@@ -83,7 +89,7 @@ namespace DropboxClone.Controllers
 
             File.Move(sourcePath, targetPath);
 
-            return Ok();
+            return Ok(new { oldName = oldPath.TrimEnd('\\').Split('\\').Last(), newName = newPath.TrimEnd('\\').Split('\\').Last() });
         }
     }
 }

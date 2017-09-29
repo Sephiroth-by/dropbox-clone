@@ -47,9 +47,11 @@ namespace DropboxClone.Controllers
         {
             string userFolder = string.Format(@"\{0}", User.Identity.GetUserId());
 
-            Directory.CreateDirectory(ConfigurationManager.AppSettings["UserDataPath"] + userFolder + path + string.Format(@"\{0}", name));
+            var directory = Directory.CreateDirectory(ConfigurationManager.AppSettings["UserDataPath"] + userFolder + path + string.Format(@"\{0}", name));
 
-            return Ok();
+            var folder = new FolderModel { Name = directory.Name, Path = path + directory.Name + @"\", ModifiedDate = directory.LastWriteTime.ToShortDateString() };
+
+            return Ok(folder);
         }
 
         [HttpPost]
@@ -65,7 +67,7 @@ namespace DropboxClone.Controllers
 
             Directory.Move(sourcePath, destinationFolder);
 
-            return Ok();
+            return Ok(sourcePath.Split('\\').Last());
         }
 
         [HttpPost]
@@ -76,7 +78,7 @@ namespace DropboxClone.Controllers
 
             Directory.Delete(ConfigurationManager.AppSettings["UserDataPath"] + userFolder + path, true);
 
-            return Ok();
+            return Ok(path.TrimEnd('\\').Split('\\').Last());
         }
 
         [HttpPost]
@@ -89,7 +91,7 @@ namespace DropboxClone.Controllers
 
             Directory.Move(sourcePath, targetPath);
 
-            return Ok();
+            return Ok(new { oldName = oldPath.TrimEnd('\\').Split('\\').Last(), newName = newPath.TrimEnd('\\').Split('\\').Last() });
         }
     }
 }

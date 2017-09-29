@@ -4,7 +4,8 @@ class RegisterForm extends React.Component {
 
     onSubmit(e) {
         e.preventDefault();
-        this.props.register(this.refs.email.value, this.refs.password.value, this.refs.confirmpassword.value);
+        if (this.refs.email.value && this.refs.password.value && this.refs.confirmpassword.value)
+            this.props.register(this.refs.email.value, this.refs.password.value, this.refs.confirmpassword.value);
     }
 
     render() {

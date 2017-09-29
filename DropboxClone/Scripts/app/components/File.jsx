@@ -11,7 +11,7 @@ var fileSource = {
         var item = monitor.getItem();
         var dropResult = monitor.getDropResult();
         if (dropResult && item.file.path != dropResult.folder.path) {
-            props.moveFolder(item.file.path, dropResult.folder.path);
+            props.moveFile(item.file.path, dropResult.folder.path);
         }
     }
 };
