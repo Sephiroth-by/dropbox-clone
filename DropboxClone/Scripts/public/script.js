@@ -40801,11 +40801,12 @@
 	    };
 	};
 
-	var renameFolder = function renameFolder(oldName, newName) {
+	var renameFolder = function renameFolder(oldName, newName, newPath) {
 	    return {
 	        type: "RENAME_FOLDER",
 	        oldName: oldName,
-	        newName: newName
+	        newName: newName,
+	        newPath: newPath
 	    };
 	};
 
@@ -40844,7 +40845,7 @@
 	function renameFolderAPI(oldPath, newPath) {
 	    return function (dispatch) {
 	        FolderApi.renameFolder(oldPath, newPath).then(function (response) {
-	            return dispatch(renameFolder(response.data.oldName, response.data.newName));
+	            return dispatch(renameFolder(response.data.oldName, response.data.newName, response.data.newPath));
 	        });
 	    };
 	}
@@ -40948,11 +40949,12 @@
 	    };
 	};
 
-	var renameFile = function renameFile(oldName, newName) {
+	var renameFile = function renameFile(oldName, newName, newPath) {
 	    return {
 	        type: "RENAME_FILE",
 	        oldName: oldName,
-	        newName: newName
+	        newName: newName,
+	        newPath: newPath
 	    };
 	};
 
@@ -40991,7 +40993,7 @@
 	function renameFileAPI(oldPath, newPath) {
 	    return function (dispatch) {
 	        FileApi.renameFile(oldPath, newPath).then(function (response) {
-	            return dispatch(renameFile(response.data.oldName, response.data.newName));
+	            return dispatch(renameFile(response.data.oldName, response.data.newName, response.data.newPath));
 	        });
 	    };
 	}
@@ -41255,6 +41257,7 @@
 	            newState.subFolders.map(function (folder, index) {
 	                if (folder.name == action.oldName) {
 	                    folder.name = action.newName;
+	                    folder.path = action.newPath;
 	                }
 	            });
 	            return newState;
@@ -41273,6 +41276,7 @@
 	            newState.files.map(function (file, index) {
 	                if (file.name == action.oldName) {
 	                    file.name = action.newName;
+	                    file.path = action.newPath;
 	                }
 	            });
 	            return newState;

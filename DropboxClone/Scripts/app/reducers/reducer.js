@@ -21,6 +21,7 @@ var folder = function(state = { path: "", name: "", subFolders: [], files: [], m
             newState.subFolders.map(function(folder, index){
                 if(folder.name == action.oldName){
                     folder.name = action.newName;
+                    folder.path = action.newPath;
                 }
             });
             return newState;
@@ -37,6 +38,7 @@ var folder = function(state = { path: "", name: "", subFolders: [], files: [], m
             newState.files.map(function(file, index){
                 if(file.name == action.oldName){
                     file.name = action.newName;
+                    file.path = action.newPath;
                 }
             });
             return newState;

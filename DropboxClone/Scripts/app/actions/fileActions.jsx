@@ -15,11 +15,12 @@ var deleteFile = function (file) {
     }
 }
 
-var renameFile = function (oldName, newName) {
+var renameFile = function (oldName, newName, newPath) {
     return {
         type: "RENAME_FILE",
         oldName: oldName,
-        newName: newName
+        newName: newName,
+        newPath: newPath
     }
 }
 
@@ -53,7 +54,7 @@ function deleteFileAPI(path) {
 
 function renameFileAPI(oldPath, newPath) {
     return function (dispatch) {
-        FileApi.renameFile(oldPath, newPath).then(response =>dispatch(renameFile(response.data.oldName, response.data.newName)))
+        FileApi.renameFile(oldPath, newPath).then(response =>dispatch(renameFile(response.data.oldName, response.data.newName, response.data.newPath)))
     }
 }
 

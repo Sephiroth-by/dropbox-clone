@@ -91,7 +91,7 @@ namespace DropboxClone.Controllers
 
             Directory.Move(sourcePath, targetPath);
 
-            return Ok(new { oldName = oldPath.TrimEnd('\\').Split('\\').Last(), newName = newPath.TrimEnd('\\').Split('\\').Last() });
+            return Ok(new { oldName = oldPath.TrimEnd('\\').Split('\\').Last(), newName = newPath.TrimEnd('\\').Split('\\').Last(), newPath = newPath });
         }
     }
 }

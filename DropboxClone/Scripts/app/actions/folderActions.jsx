@@ -28,11 +28,12 @@ var deleteFolder = function (folder) {
     }
 }
 
-var renameFolder = function (oldName, newName) {
+var renameFolder = function (oldName, newName, newPath) {
     return {
         type: "RENAME_FOLDER",
         oldName: oldName,
-        newName: newName
+        newName: newName,
+        newPath: newPath
     }
 }
 
@@ -62,7 +63,7 @@ function deleteFolderAPI(path) {
 
 function renameFolderAPI(oldPath, newPath) {
     return function (dispatch) {
-        FolderApi.renameFolder(oldPath, newPath).then(response =>dispatch(renameFolder(response.data.oldName, response.data.newName)))
+        FolderApi.renameFolder(oldPath, newPath).then(response =>dispatch(renameFolder(response.data.oldName, response.data.newName, response.data.newPath)))
     }
 }
 

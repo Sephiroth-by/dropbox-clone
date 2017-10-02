@@ -53,7 +53,6 @@ class App extends React.Component {
                                 searchFile = {this.props.searchFile} 
                                 triggerSearch = {this.props.finishSearch} />
                       </div>
-
             }
         }
 
